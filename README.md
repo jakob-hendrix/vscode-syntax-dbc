@@ -44,6 +44,7 @@ Look at the following links for guides to editing custom grammars. For any chang
 
 #### Scopes we should handle, if possible:
 
+```
 comment
 constant
 constant.character.escape
@@ -84,12 +85,14 @@ variable
 variable.language
 variable.other
 variable.parameter
+```
 
 #### Standard scopes
 
 > \* - present on list of commonly styled scopes
 > \*\* - styled by settings
 
+```
 comment*
     line
         double-slash
@@ -158,6 +161,7 @@ variable
     parameter*
     language*
     other*
+```
 
 ## Release Notes
 
