@@ -10,20 +10,14 @@
     ],
     "patterns": [
         {
-            "include": "#comments"
+            "include": "#comment"
         },
         {
-            "include": "#constants"
-        },
-        {
-            "include": "#keywords"
-        },
-        {   
-            "include": "#string"
+            "include": "#dbc-content"
         }
     ],
     "repository": {
-        "comments": {
+        "comment": {
             "patterns": [
                 {
                     "name": "comment.line.dbc",
@@ -32,7 +26,30 @@
                 }
             ]
         },
-        "constants": {
+        "dbc-content": {
+            "comment": "Valid DBC lines",
+            "patterns": [
+                {
+                    "include": "#string"
+                },
+                {
+                    "include": "#keyword"
+                },
+                {
+                    "include": "#constant"
+                },
+                {
+                    "include": "#expression"
+                },
+                {
+                    "match": "^[[:space:]]+\\b([[:alpha:]_]\\w*)\\b"
+                }
+            ]
+        },
+        "expression": {
+
+        },
+        "constant": {
             "patterns": [
                 {
                     "name": "constant.numeric.integer",
@@ -40,7 +57,7 @@
                 }
             ]
         },
-        "keywords": {
+        "keyword": {
             "patterns": [
                 {
                     "name": "keyword.control.dbc",
@@ -49,20 +66,30 @@
             ]
         },
         "string": {
-            "name": "string.quoted.double.dbc",
             "begin": "\"",
-            "end": "\"",
-            "patterns": [
-                {
-                    "include": "#string-character-escape"
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.dbc"
                 }
-            ]
-        },
-        "string-character-escape": {
-            "name": "constant.character.escape.dbc",
+            },
+            "end": "\"",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.dbc"
+                }
+            },
             "patterns": [
                 {
-                    "match": "\\\\(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+                    "include": "#string-content"
+                }
+            ],
+            "name": "string.quoted.double.dbc"
+        },
+        "string-content": {
+            "patterns": [
+                {
+                    "match": "\\.",
+                    "name": "constant.character.escape.dbc"
                 }
             ]
         }

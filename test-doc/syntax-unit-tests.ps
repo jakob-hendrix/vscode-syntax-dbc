@@ -14,6 +14,13 @@
     DIVIDE SOMENUM BY 12
     SUBTRACT 1 FROM SOMENUM GIVING RESULT
 
+.strings
+
+"Hello, there"
+    "Hello, again"
+
+    MOVE "abc" TO RESULT
+
 ACTMICE_PRD             CHAR      005
                         LISTEND
 .
@@ -34,6 +41,8 @@ MEDIMP_XRF_REC       CHAR     80
     ELSE
         CALL X_BLANK_SCREEN
     ENDIF
+
+
 
 ...Configure test options based on file mode. Default is Production
     CALL UTIL_SET_TESTMODE USING PARAM_MODE:  ...scheduler param
