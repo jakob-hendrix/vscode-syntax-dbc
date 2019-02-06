@@ -8,16 +8,18 @@
 
 .Math
     MOVE ((1 + 2) / 12 * 18 % 6 - 10.087) TO RESULT
-    MOVE (1 / 12) 
+    MOVE (1 / 12)
     ADD 1 TO SOMEVAR GIVING SOMEOTHERVAR
     MULTIPLY 1 BY 2 GIVING RESULT
     DIVIDE SOMENUM BY 12
     SUBTRACT 1 FROM SOMENUM GIVING RESULT
+IF (127.ABC > asdas )
 
 .strings
 
 "Hello, there"
     "Hello, again"
+    "hello #""  ...string not escaping the close
 
     MOVE "abc" TO RESULT
 
@@ -36,7 +38,7 @@ MEDIMP_XRF_REC       CHAR     80
 ... Adding CMD_START for autosys
 . ---------------------------------
 
-    IF (C_CMDPAR)
+    IF (C_CMDPAR AND TESTFLAG | NOT TESTER OR ABC123 & TRUTH)
         CALL CMD_START USING C_PROG
     ELSE
         CALL X_BLANK_SCREEN

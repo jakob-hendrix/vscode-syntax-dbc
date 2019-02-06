@@ -13,11 +13,12 @@
             "include": "#comment"
         },
         {
-            "include": "#dbc-content"
+            "include": "#expression"
         }
     ],
     "repository": {
         "comment": {
+            "comment": "TODO: handle strings that start with '...' and follow a valid expression",
             "patterns": [
                 {
                     "name": "comment.line.dbc",
@@ -26,46 +27,110 @@
                 }
             ]
         },
-        "dbc-content": {
-            "comment": "Valid DBC lines",
+        "expression": {
+            "comment": "TODO: Set this to trigger only if the first column (at least) is whitespace",
             "patterns": [
                 {
                     "include": "#string"
                 },
                 {
-                    "include": "#keyword"
+                    "include": "#dbc-keyword"
+                },
+                {
+                    "include": "#verb"
                 },
                 {
                     "include": "#constant"
                 },
                 {
-                    "include": "#expression"
-                },
-                {
-                    "match": "^[[:space:]]+\\b([[:alpha:]_]\\w*)\\b"
+                    "include": "#development"
                 }
             ]
-        },
-        "expression": {
-
         },
         "constant": {
             "patterns": [
                 {
-                    "name": "constant.numeric.integer",
-                    "match": "\\b(?:[0-9]+\\.?[0-9]*)\\b"
+                    "include": "#numbers"
+                },
+                {
+                    "include": "#operator"
                 }
             ]
         },
-        "keyword": {
+        "operator": {
             "patterns": [
                 {
-                    "name": "keyword.control.dbc",
-                    "match": "\\b(?i:(if|else|endif|while|for|return|))\\b"
+                    "include": "#operator-arithmetic"
+                },
+                {
+                    "include": "#operator-logical"
+                },
+                {
+                    "include": "#operator-comparison"
+                }
+            ]
+        },
+        "operator-comparison": {
+            "patterns": [
+                {
+                    "match": "(?x)(!= | == | >= | <= | < | >)",
+                    "name": "keyword.operator.comparison.dbc"
+                }
+            ]
+        },
+        "operator-arithmetic": {
+            "patterns": [
+                {
+                    "match": "(?x)(?i:(\\*\\* | \\* | \\+ | - | % | // | /))",
+                    "name": "keyword.operator.math.dbc"
+                }
+            ]
+        },
+        "operator-logical": {
+            "patterns": [
+                {
+                    "match": "(?x)(?i:\\b(and | or | not)\\b | (\\| | \\&))",
+                    "name": "keyword.other.operator.logical.dbc"
+                }
+            ]
+        },
+        "development": {
+            "patterns": [
+                {
+                    "match": "(?x)(?i) (debug)",
+                    "name": "invalid.illegal.test"
+                }
+            ]
+        },
+        "numbers": {
+            "name": "constant.numeric.dbc",
+            "patterns": [
+                {
+                    "include": "#number-float"
+                },
+                {
+                    "include": "#number-integer"
+                }
+            ]
+        },
+        "number-integer": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.integer.dbc",
+                    "match": "(?x) \\b (?:[0-9]+) \\b"
+                }
+            ]
+        },
+        "number-float": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.float.dbc",
+                    "match": "(?x) \\b (?:[0-9]+\\.?[0-9]*) \\b"
                 }
             ]
         },
         "string": {
+            "name": "string.quoted.double.dbc",
             "begin": "\"",
             "beginCaptures": {
                 "0": {
@@ -74,22 +139,113 @@
             },
             "end": "\"",
             "endCaptures": {
-                "0": {
+                "1": {
                     "name": "punctuation.definition.string.end.dbc"
                 }
             },
             "patterns": [
                 {
-                    "include": "#string-content"
+                    "include": "#string-escape-character"
                 }
-            ],
-            "name": "string.quoted.double.dbc"
+            ]
         },
-        "string-content": {
+        "string-escape-character": {
             "patterns": [
                 {
-                    "match": "\\.",
+                    "match": "\\#.",
                     "name": "constant.character.escape.dbc"
+                }
+            ]
+        },
+        "dbc-keyword": {
+            "patterns": [
+                {
+                    "include": "#keyword-verb"
+                },
+                {
+                    "include": "#keyword-verb-custom"
+                },
+                {
+                    "include": "#keyword-utility"
+                },
+                {
+                    "include": "#keyword-flow"
+                },
+                {
+                    "include": "#keyword-preposition"
+                },
+                {
+                    "include": "#keyword-definition-routine"
+                },
+                {
+                    "include": "#keyword-definition-statement"
+                },
+                {
+                    "include": "#keyword-flag"
+                }
+            ]
+        },
+        "keyword-flow": {
+            "patterns": [
+                {
+                    "name": "keyword.control.flow.dbc",
+                    "match": "(?x) \\b(?i:( break | case | continue | default | else | endif | endswitch | for | if | loop | repeat | switch | until | while ))\\b"
+                }
+            ]
+        },
+        "keyword-verb": {
+            "patterns": [
+                {
+                    "name": "keyword.control.verb.dbc",
+                    "match": "(?x) \\b (?i:( add | append | beep | branch | bump | call | ccall | chain | change | charrestore | charsave | check10 | check11 | chop | clear | clearadr | clearendkey | clearlabel | clock | close | closeall | cmatch | cmove | comclose | compare | compareadr | comtst | comwait | console | count | delete | deletek | destroy | disable | display | divide | draw | edit | empty | enable | endset | erase | execute | extend | external | (aimdex | build | copy | create | encode | exist | index | reformat | sort) | filepi | fill | flagrestore | flagsave | flusheof | format | fposit | get | getcolor | getcursor | getendkey | getglobal | getlabel | getmodules | getname | getobject | getparm | getposition | getprinter | getwindow | goto | hide | insert | inc | include | keyin | lcmove | lenset | link | load | loadadr | loadlabel | loadmod | loadparam | make | makeglobal | makevar | match | (abs | arcos | arcsin | arctan | cos | exp | log | log10 | power | sin | sqrt | tan) | mod | move | moveadr | movefptr | movelabel | movelength | movelptr | movelv | movesize | moveevl | multiply | nformat | noeject | noreturn | open | pack | packlen | pause | perform | ploadmod | popreturn | prepare | prep | print | pushreturn | put | putfirst | query | read | readgplk | readkg | readkglk | readkgp | readkp | readkplk | readks | readkslk | readlk | recv | recvclr | release | rename | replace | reposit | reset | resetparm | retcount | return | rollout | scan | scrnrestore | scrnsave | scrnsize | search | send | sendclr | set | setendkey | setflag | setlptr | setnull | sformat | show | shutdown | sound | splclose | splopen | splopt | sqlcode | sqlexec | sqlmsg | squeeze | staterestore | statesave | statesize | stop | store | storeadr | storelabel | subtract | tabpage | test | testadr | testlabel | trap | traprest | traprestore | trapsave | trapsize | type | unlink | unload | unlock | unpack | unpacklist | updatab | update | wait | weof | winrestore | winsave | winsize | write | xor )) \\b"
+                }
+            ]
+        },
+        "keyword-verb-custom": {
+            "patterns": [
+                {
+                    "name": "keyword.control.verb.custom.dbc",
+                    "match": "(?x) \\b (?i:( messageerase )) \\b"
+                }
+            ]
+        },
+        "keyword-utility": {
+            "patterns": [
+                {
+                    "name": "keyword.control.utility.dbc",
+                    "match": "(?x) \\b (?i:( delete | dump | edit | encode | filechk | library | tdcmp )) \\b"
+                }
+            ]
+        },
+        "keyword-preposition": {
+            "patterns": [
+                {
+                    "name": "keyword.control.preposition.dbc",
+                    "match": "(?x) \\b (?i:(by | from | giving | into | to | using | with)) \\b"
+                }
+            ]
+        },
+        "keyword-definition-routine": {
+            "patterns": [
+                {
+                    "name": "keyword.other.definition.routine.dbc",
+                    "match": "(?x) \\b (?i:( endroutine | lroutine |routine )) \\b"
+                }
+            ]
+        },
+        "keyword-definition-statement": {
+            "patterns": [
+                {
+                    "name": "keyword.other.definition.statement.dbc",
+                    "match": "(?x) \\b (?i:( equ | equate | char | dim | init | num | integer | float | form | list\\ with\\ names | list | listend | varlist | record\\ with\\ names | record | recordend | file | ifile | afile | pfile | comfile | fixed= | variable= | var= | compressed | comp | uncompressed | uncomp | standard | text | data | native | binary | static= | cobol | dynamic | overlap | increment | keylength= | keylen= | duplicates | dup | noduplicates | nodup | class\\ definition | endclass | class\\ module= | class | method | object | make= | destroy= | parent= | device | resource | image | queue gchar | gcharacter | gdim | gnumber | gnum | gform | gfloat | gobject | gdevice | gresource | gimage | gqueue | gpfile | label | verb | cverb )) \\b"
+                }
+            ]
+        },
+        "keyword-flag": {
+            "patterns": [
+                {
+                    "name": "keyword.other.flag.dbc",
+                    "match": "(?x) \\b (?i:( equal | over | eos )) \\b"
                 }
             ]
         }
