@@ -89,8 +89,8 @@ variable.parameter
 
 #### Standard scopes
 
-> \* - present on list of commonly styled scopes
-> \*\* - styled by settings
+* \* *present on list of commonly styled scopes*
+* \*\* *styled by settings*
 
 ```
 comment*
