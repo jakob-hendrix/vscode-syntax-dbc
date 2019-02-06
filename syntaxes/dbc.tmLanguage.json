@@ -18,6 +18,7 @@
     ],
     "repository": {
         "comment": {
+            "comment": "TODO: handle strings that start with '...' and follow a valid expression",
             "patterns": [
                 {
                     "name": "comment.line.dbc",
@@ -144,13 +145,22 @@
                     "include": "#keyword-verb"
                 },
                 {
+                    "include": "#keyword-verb-custom"
+                },
+                {
+                    "include": "#keyword-utility"
+                },
+                {
                     "include": "#keyword-flow"
                 },
                 {
                     "include": "#keyword-preposition"
                 },
                 {
-                    "include": "#keyword-declaration"
+                    "include": "#keyword-definition-routine"
+                },
+                {
+                    "include": "#keyword-definition-statement"
                 },
                 {
                     "include": "#keyword-flag"
@@ -169,7 +179,23 @@
             "patterns": [
                 {
                     "name": "keyword.control.verb.dbc",
-                    "match": "(?x) \\b (?i:( add | call | chain | clock | exist | inc | include | move | pack | packlen | return )) \\b"
+                    "match": "(?x) \\b (?i:( add | append | beep | branch | bump | call | ccall | change | charrestore | charsave | check10 | check11 | chop | clear | clearadr | clearendkey | clearlabel | clock | close | closeall | cmatch | cmove | comclose | compare | compareadr | comtst | comwait | console | count | debug | delete | deletek | destroy | disable | display | divide | draw | edit | empty | enable | endset | erase | execute | extend | external | TODO: 354 | filepi | fill | flagrestore | flagsave | flusheof | format | fposit | get | getcolor | getcursor | getendkey | getglobal | getlabel | getmodules | getname | getobject | getparm | getposition | getprinter | getwindow | goto | hide | insert | inc | include | move | pack | packlen | return )) \\b"
+                }
+            ]
+        },
+        "keyword-verb-custom": {
+            "patterns": [
+                {
+                    "name": "keyword.control.verb.custom.dbc",
+                    "match": "(?x) \\b (?i:( messageerase )) \\b"
+                }
+            ]
+        },
+        "keyword-utility": {
+            "patterns": [
+                {
+                    "name": "keyword.control.utility.dbc",
+                    "match": "(?x) \\b (?i:( aimdex | build | chain | copy | create | delete | dump | edit | encode | exist | filechk | index | library | reformat | rename | sort | tdcmp )) \\b"
                 }
             ]
         },
@@ -181,11 +207,19 @@
                 }
             ]
         },
-        "keyword-declaration": {
+        "keyword-definition-routine": {
             "patterns": [
                 {
-                    "name": "keyword.other.declaration.dbc",
-                    "match": "(?x) \\b (?i:( char | dim | endroutine | equ | equate | file | form | init | list\\ with\\ names | list | listend | lroutine | num | routine | varlist )) \\b"
+                    "name": "keyword.other.definition.routine.dbc",
+                    "match": "(?x) \\b (?i:( endroutine | lroutine |routine )) \\b"
+                }
+            ]
+        },
+        "keyword-definition-statement": {
+            "patterns": [
+                {
+                    "name": "keyword.other.definition.statement.dbc",
+                    "match": "(?x) \\b (?i:( equ | equate | char | dim | init | num | integer | float | form | list\\ with\\ names | list | listend | varlist | record\\ with\\ names | record | recordend | file | ifile | afile | pfile | comfile | fixed= | variable= | var= | compressed | comp | uncompressed | uncomp | standard | text | data | native | binary | static= | cobol | dynamic | overlap | increment | keylength= | keylen= | duplicates | dup | noduplicates | nodup | class\\ definition | endclass | class\\ module= | class | method | object | make= | destroy= | parent= | device | resource | image | queue gchar | gcharacter | gdim | gnumber | gnum | gform | gfloat | gobject | gdevice | gresource | gimage | gqueue | gpfile | label | verb | cverb )) \\b"
                 }
             ]
         },
