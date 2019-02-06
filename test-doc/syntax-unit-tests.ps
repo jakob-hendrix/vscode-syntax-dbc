@@ -1,0 +1,40 @@
+.Comments starting with . at the first column
++Comments starting with + at the first column
+
+.Constant.numeric.integer
+123
+1231.01
+  13213.46546
+
+.Math
+    MOVE ((1 + 2) / 12 * 18 % 6 - 10.087) TO RESULT
+    MOVE (1 / 12) 
+    ADD 1 TO SOMEVAR GIVING SOMEOTHERVAR
+    MULTIPLY 1 BY 2 GIVING RESULT
+    DIVIDE SOMENUM BY 12
+    SUBTRACT 1 FROM SOMENUM GIVING RESULT
+
+ACTMICE_PRD             CHAR      005
+                        LISTEND
+.
+MEDIMP_XRF_FD        FILE     VAR=80,TEXT
+MEDIMP_XRF_NAME      CHAR     35
+MEDIMP_XRF_PRE       INIT     "/w/ogb_mbrxwalk"
+MEDIMP_XRF_EXT       INIT     ".txt"
+MEDIMP_XRF_LIST      LIST
+MEDIMP_XRF_REC       CHAR     80
+                     LISTEND
+
+. ---------------------------------
+... Adding CMD_START for autosys
+. ---------------------------------
+
+    IF (C_CMDPAR)
+        CALL CMD_START USING C_PROG
+    ELSE
+        CALL X_BLANK_SCREEN
+    ENDIF
+
+...Configure test options based on file mode. Default is Production
+    CALL UTIL_SET_TESTMODE USING PARAM_MODE:  ...scheduler param
+                                 ENABLE_TEST:  ...test toggle

@@ -1,0 +1,30 @@
+{
+    "name": "ogb-code-dbc-language-syntax",
+    "displayName": "dbc_dx",
+    "description": "DBC Source Code File",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.30.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "publisher": "OTS-Applications (OGB)",
+    "author": {
+        "name": "Jakob Hendrix",
+        "email": "jakob.hendrix@la.gov"
+    },
+    "contributes": {
+        "languages": [{
+            "id": "dbc",
+            "aliases": ["DBC", "dbc"],
+            "extensions": [".ps",".rl",".sr",".cb"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "dbc",
+            "scopeName": "source.dbc",
+            "path": "./syntaxes/dbc.tmLanguage.json"
+        }]
+    }
+}
