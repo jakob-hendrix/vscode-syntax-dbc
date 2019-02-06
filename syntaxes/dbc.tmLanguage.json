@@ -13,7 +13,7 @@
             "include": "#comment"
         },
         {
-            "include": "#dbc-content"
+            "include": "#expression"
         }
     ],
     "repository": {
@@ -26,42 +26,52 @@
                 }
             ]
         },
-        "dbc-content": {
-            "comment": "Valid DBC lines",
+        "expression": {
             "patterns": [
                 {
                     "include": "#string"
                 },
                 {
-                    "include": "#keyword"
+                    "include": "#dbc-keyword"
+                },
+                {
+                    "include": "#verb"
                 },
                 {
                     "include": "#constant"
-                },
-                {
-                    "include": "#expression"
-                },
-                {
-                    "match": "^[[:space:]]+\\b([[:alpha:]_]\\w*)\\b"
                 }
             ]
-        },
-        "expression": {
-
         },
         "constant": {
             "patterns": [
                 {
-                    "name": "constant.numeric.integer",
-                    "match": "\\b(?:[0-9]+\\.?[0-9]*)\\b"
+                    "include": "#numbers"
                 }
             ]
         },
-        "keyword": {
+        "numbers": {
             "patterns": [
                 {
-                    "name": "keyword.control.dbc",
-                    "match": "\\b(?i:(if|else|endif|while|for|return|))\\b"
+                    "include": "#number-float"
+                },
+                {
+                    "include": "#number-integer"
+                }
+            ]
+        },
+        "number-integer": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.integer",
+                    "match": "\\b(?:[0-9]+)\\b"
+                }
+            ]
+        },
+        "number-float": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.integer",
+                    "match": "\\b(?:[0-9]+\\.?[0-9]*)\\b"
                 }
             ]
         },
@@ -80,16 +90,68 @@
             },
             "patterns": [
                 {
-                    "include": "#string-content"
+                    "match": "\\#",
+                    "name": "constant.character.escape.dbc"
                 }
             ],
             "name": "string.quoted.double.dbc"
         },
-        "string-content": {
+        "dbc-keyword": {
             "patterns": [
                 {
-                    "match": "\\.",
-                    "name": "constant.character.escape.dbc"
+                    "include": "#keyword-verb"
+                },
+                {
+                    "include": "#keyword-flow"
+                },
+                {
+                    "include": "#keyword-preposition"
+                },
+                {
+                    "include": "#keyword-declaration"
+                },
+                {
+                    "include": "#keyword-flag"
+                }
+            ]
+        },
+        "keyword-flow": {
+            "patterns": [
+                {
+                    "name": "keyword.control.flow.dbc",
+                    "match": "(?x) \\b(?i:( continue | break | debug | else | endif | endswitch | for | if | loop | repeat | switch | until | while ))\\b"
+                }
+            ]
+        },
+        "keyword-verb": {
+            "patterns": [
+                {
+                    "name": "keyword.control.verb.dbc",
+                    "match": "(?x) \\b (?i:( add | call | chain | clock | exist | inc | include | move | pack | packlen | return )) \\b"
+                }
+            ]
+        },
+        "keyword-preposition": {
+            "patterns": [
+                {
+                    "name": "keyword.control.preposition.dbc",
+                    "match": "(?x) \\b (?i:( to | into | using | with )) \\b"
+                }
+            ]
+        },
+        "keyword-declaration": {
+            "patterns": [
+                {
+                    "name": "keyword.other.declaration.dbc",
+                    "match": "(?x) \\b (?i:( char | dim | endroutine | equ | equate | file | form | init | list\\ with\\ names | list | listend | lroutine | num | routine | varlist )) \\b"
+                }
+            ]
+        },
+        "keyword-flag": {
+            "patterns": [
+                {
+                    "name": "keyword.other.flag.dbc",
+                    "match": "(?x) \\b (?i:( equal | over | eos )) \\b"
                 }
             ]
         }
