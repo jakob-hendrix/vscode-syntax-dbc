@@ -27,6 +27,7 @@
             ]
         },
         "expression": {
+            "comment": "TODO: Set this to trigger only if the first column (at least) is whitespace",
             "patterns": [
                 {
                     "include": "#string"
@@ -46,10 +47,51 @@
             "patterns": [
                 {
                     "include": "#numbers"
+                },
+                {
+                    "include": "#operator"
+                }
+            ]
+        },
+        "operator": {
+            "patterns": [
+                {
+                    "include": "#operator-arithmetic"
+                },
+                {
+                    "include": "#operator-logical"
+                },
+                {
+                    "include": "#operator-comparison"
+                }
+            ]
+        },
+        "operator-comparison": {
+            "patterns": [
+                {
+                    "match": "(?x)(!= | == | >= | <= | < | >)",
+                    "name": "keyword.operator.comparison.dbc"
+                }
+            ]
+        },
+        "operator-arithmetic": {
+            "patterns": [
+                {
+                    "match": "(?x)(?i:(\\*\\* | \\* | \\+ | - | % | // | /))",
+                    "name": "keyword.operator.math.dbc"
+                }
+            ]
+        },
+        "operator-logical": {
+            "patterns": [
+                {
+                    "match": "(?x)(?i:\\b(and | or | not)\\b | (\\| | \\&))",
+                    "name": "keyword.other.operator.logical.dbc"
                 }
             ]
         },
         "numbers": {
+            "name": "constant.numeric.dbc",
             "patterns": [
                 {
                     "include": "#number-float"
@@ -62,16 +104,16 @@
         "number-integer": {
             "patterns": [
                 {
-                    "name": "constant.numeric.integer",
-                    "match": "\\b(?:[0-9]+)\\b"
+                    "name": "constant.numeric.integer.dbc",
+                    "match": "(?x) \\b (?:[0-9]+) \\b"
                 }
             ]
         },
         "number-float": {
             "patterns": [
                 {
-                    "name": "constant.numeric.integer",
-                    "match": "\\b(?:[0-9]+\\.?[0-9]*)\\b"
+                    "name": "constant.numeric.float.dbc",
+                    "match": "(?x) \\b (?:[0-9]+\\.?[0-9]*) \\b"
                 }
             ]
         },
@@ -135,7 +177,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.preposition.dbc",
-                    "match": "(?x) \\b (?i:( to | into | using | with )) \\b"
+                    "match": "(?x) \\b (?i:(by | from | giving | into | to | using | with)) \\b"
                 }
             ]
         },
