@@ -24,6 +24,13 @@ None yet...
 
 ## How To Contribute
 
+### Repositories
+
+This language syntax was developed in my personal repo primarily but should have all ongoing development completed here:
+
+* My personal repo: https://github.com/jakob-hendrix/vscode-syntax-dbc
+* The OGB repo: https://git.la.gov/OGB/OGB-tools-vscode-language-dbc
+
 ### Grammar Creation Guide
 
 Look at the following links for guides to editing custom grammars. For any changes you make, be sure to follow the standard Git workflow.
@@ -168,5 +175,9 @@ variable
 ### 0.0.1
 
 Mostly just the Yeoman scaffolding for a Code extention.
+
+### 0.0.2
+
+All of the verbs have been added and strings work. This is now useable!
 
 -----------------------------------------------------------------------------------------------------------

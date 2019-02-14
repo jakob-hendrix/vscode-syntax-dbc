@@ -1,28 +1,41 @@
+
+
+.<Comments> --------------------------------------------
+
 .Comments starting with . at the first column
 +Comments starting with + at the first column
 
-.Constant.numeric.integer
-123
-1231.01
-  13213.46546
+    MOVE "ABC" TO RESULT  ...commentes after expressions
 
-.Math
+.<Math> -------------------------------------------------
+
+.Constant.numeric.integer
+    123
+    1231.01
+    13213.46546
+    123abc  ...not a number
+
     MOVE ((1 + 2) / 12 * 18 % 6 - 10.087) TO RESULT
     MOVE (1 / 12)
     ADD 1 TO SOMEVAR GIVING SOMEOTHERVAR
     MULTIPLY 1 BY 2 GIVING RESULT
     DIVIDE SOMENUM BY 12
     SUBTRACT 1 FROM SOMENUM GIVING RESULT
-IF (127.ABC > asdas )
 
-.strings
+.<Strings>
 
+.1st column
 "Hello, there"
+
+.normal string
     "Hello, again"
-    "hello #""  ...string not escaping the close
+
+.escaped double quote
+    "hello #""
 
     MOVE "abc" TO RESULT
 
+.<Variable Definitions>
 ACTMICE_PRD             CHAR      005
                         LISTEND
 .
@@ -34,18 +47,22 @@ MEDIMP_XRF_LIST      LIST
 MEDIMP_XRF_REC       CHAR     80
                      LISTEND
 
-. ---------------------------------
-... Adding CMD_START for autosys
-. ---------------------------------
-
-    IF (C_CMDPAR AND TESTFLAG | NOT TESTER OR ABC123 & TRUTH)
-        CALL CMD_START USING C_PROG
-    ELSE
-        CALL X_BLANK_SCREEN
-    ENDIF
+.<Verbs>
 
 
+.<Operators>
 
-...Configure test options based on file mode. Default is Production
-    CALL UTIL_SET_TESTMODE USING PARAM_MODE:  ...scheduler param
-                                 ENABLE_TEST:  ...test toggle
+.<Debug>
+
+.invalid due to being on the first column
+debug
+
+.valid debug (no trailing whitespace)
+    debug
+
+.valid debug (trainling whitespace)
+    debug  ...prevent trim breaking this test
+
+.false positives
+    debug_I_debug_therefore_I_am_a_debugger_debug
+
