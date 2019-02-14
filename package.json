@@ -18,7 +18,7 @@
         "languages": [{
             "id": "dbc",
             "aliases": ["DBC", "dbc"],
-            "extensions": [".ps",".rl",".sr",".cb"],
+            "extensions": [".cb", ".io", ".ogb", ".ps",".rl",".sr"],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
